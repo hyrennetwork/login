@@ -1,0 +1,6 @@
+name: Login
+main: com.redefantasy.login.LoginPlugin
+version: 0.1-ALPHA
+author: Gutyerrez
+depend:
+  - Core
