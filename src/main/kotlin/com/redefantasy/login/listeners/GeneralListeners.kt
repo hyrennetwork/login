@@ -80,6 +80,8 @@ class GeneralListeners : Listener {
 
         val spawnSerializedLocation = LoginProvider.Repositories.Mongo.SPAWN_REPOSITORY.provide().fetch()
 
+        println(spawnSerializedLocation)
+
         if (spawnSerializedLocation !== null) player.teleport(
             CoreSpigotConstants.BUKKIT_LOCATION_PARSER.apply(spawnSerializedLocation)
         )

@@ -19,7 +19,9 @@ class MongoSpawnRepository : MongoRepository<SerializedLocation>(
         serializedLocation: SerializedLocation
     ) = this.mongoCollection.insertOne(serializedLocation)
 
-    override fun fetch(): SerializedLocation? = this.mongoCollection.find().first()
+    override fun fetch(): SerializedLocation? = this.mongoCollection.find(
+        Filters.eq("application_name", CoreProvider.application.name)
+    ).first()
 
     override fun delete(
         serializedLocation: SerializedLocation
