@@ -62,7 +62,7 @@ class GeneralListeners : Listener {
                 player.kick(
                     ComponentBuilder()
                         .append("§c§lREDE FANTASY")
-                        .append("\n")
+                        .append("\n\n")
                         .append("§cVocê excedeu o tempo limite para efetuar o login, tente novamente.")
                         .create()
                 )
