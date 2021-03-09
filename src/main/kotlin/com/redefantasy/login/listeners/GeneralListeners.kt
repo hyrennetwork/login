@@ -30,6 +30,8 @@ import java.util.*
  */
 class GeneralListeners : Listener {
 
+    private val SECONDS = 30L
+
     companion object {
 
         val LOGIN_IN = mutableMapOf<UUID, BukkitTask>()
@@ -51,7 +53,7 @@ class GeneralListeners : Listener {
             }",
             0,
             0,
-            20 * 10
+            20 * SECONDS.toInt()
         )
 
         LOGIN_IN[player.uniqueId] = Bukkit.getScheduler().runTaskLater(
@@ -65,7 +67,7 @@ class GeneralListeners : Listener {
                         .create()
                 )
             },
-            20 * 10
+            20 * SECONDS
         )
 
         title.sendToPlayer(player)
@@ -90,6 +92,9 @@ class GeneralListeners : Listener {
         val player = event.player
         val fromLocation = event.from
         val toLocation = event.to
+        val user = CoreProvider.Cache.Local.USERS.provide().fetchById(player.uniqueId)
+
+        if (user !== null && user.isLogged() && user.hasGroup(Group.MANAGER)) return
 
         if (toLocation.x != fromLocation.x || toLocation.y != fromLocation.y || toLocation.z != fromLocation.z) {
             player.teleport(fromLocation)

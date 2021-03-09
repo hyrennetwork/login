@@ -2,6 +2,7 @@ package com.redefantasy.login.misc.services
 
 import com.redefantasy.core.shared.users.data.User
 import com.redefantasy.core.spigot.misc.utils.Title
+import com.redefantasy.login.listeners.GeneralListeners
 import org.bukkit.Bukkit
 import org.bukkit.Sound
 
@@ -13,6 +14,7 @@ object LoginService {
     fun authenticate(user: User) {
         val player = Bukkit.getPlayer(user.getUniqueId())
 
+        GeneralListeners.LOGIN_IN.remove(player.uniqueId)
 
         user.setLogged(true)
 
