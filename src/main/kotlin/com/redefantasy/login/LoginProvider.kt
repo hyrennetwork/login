@@ -11,7 +11,7 @@ import com.redefantasy.login.storage.repositories.implementations.MongoSpawnRepo
 object LoginProvider {
 
     fun prepare() {
-
+        Repositories.Mongo.SPAWN_REPOSITORY.prepare()
     }
 
     object Repositories {
