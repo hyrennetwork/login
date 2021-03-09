@@ -14,7 +14,9 @@ object LoginService {
     fun authenticate(user: User) {
         val player = Bukkit.getPlayer(user.getUniqueId())
 
-        GeneralListeners.LOGIN_IN.remove(player.uniqueId)
+        val bukkitTask = GeneralListeners.LOGIN_IN[player.uniqueId]
+
+        if (bukkitTask !== null) Bukkit.getScheduler().cancelTask(bukkitTask.taskId)
 
         user.setLogged(true)
 
