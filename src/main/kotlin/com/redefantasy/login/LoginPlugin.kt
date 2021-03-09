@@ -4,6 +4,7 @@ import com.redefantasy.core.spigot.command.registry.CommandRegistry
 import com.redefantasy.core.spigot.misc.plugin.CustomPlugin
 import com.redefantasy.login.commands.LoginCommand
 import com.redefantasy.login.commands.RegisterCommand
+import com.redefantasy.login.commands.SetSpawnCommand
 import com.redefantasy.login.listeners.GeneralListeners
 import org.bukkit.Bukkit
 
@@ -33,6 +34,7 @@ class LoginPlugin : CustomPlugin() {
 
         CommandRegistry.registerCommand(LoginCommand())
         CommandRegistry.registerCommand(RegisterCommand())
+        CommandRegistry.registerCommand(SetSpawnCommand())
 
         /**
          * World settings
