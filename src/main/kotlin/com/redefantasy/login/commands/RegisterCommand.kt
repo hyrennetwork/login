@@ -9,9 +9,8 @@ import com.redefantasy.core.shared.users.passwords.storage.dto.CreateUserPasswor
 import com.redefantasy.core.shared.users.passwords.storage.dto.FetchUserPasswordByUserIdDTO
 import com.redefantasy.core.shared.users.storage.dto.CreateUserDTO
 import com.redefantasy.core.spigot.command.CustomCommand
-import com.redefantasy.core.spigot.misc.utils.Title
+import com.redefantasy.login.misc.services.LoginService
 import net.md_5.bungee.api.chat.TextComponent
-import org.bukkit.Sound
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
@@ -90,23 +89,7 @@ class RegisterCommand : CustomCommand("registrar") {
             return false
         }
 
-        _user.setLogged(true)
-
-        val title = Title(
-            "§a§lRegistrado!",
-            "§fRedirecionando...",
-            0,
-            0,
-            60
-        )
-
-        commandSender.playSound(
-            commandSender.location,
-            Sound.LEVEL_UP,
-            1.0F,
-            1.0F
-        )
-        title.sendToPlayer(commandSender)
+        LoginService.authenticate(_user)
         return false
     }
 

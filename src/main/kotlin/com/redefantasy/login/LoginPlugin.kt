@@ -31,6 +31,17 @@ class LoginPlugin : CustomPlugin() {
 
         CommandRegistry.registerCommand(LoginCommand())
         CommandRegistry.registerCommand(RegisterCommand())
+
+        /**
+         * World settings
+         */
+        Bukkit.getServer().worlds.forEach {
+            it.setGameRuleValue("randomTickSpeed", "-999")
+            it.setGameRuleValue("doFireTick", "false")
+            it.setGameRuleValue("doDaylightCycle", "false")
+
+            it.time = 1200
+        }
     }
 
 }

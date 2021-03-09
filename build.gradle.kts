@@ -55,6 +55,9 @@ dependencies {
     // jodatime
     compileOnly("org.jetbrains.exposed:exposed-jodatime:0.29.1")
 
+    // mongodb
+    compileOnly("org.mongodb:mongo-java-driver:3.9.1")
+
     // core
     compileOnly("com.redefantasy:core-shared:0.1-ALPHA")
     compileOnly("com.redefantasy:core-spigot:0.1-ALPHA")

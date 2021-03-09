@@ -4,14 +4,12 @@ import com.redefantasy.core.shared.CoreConstants
 import com.redefantasy.core.shared.CoreProvider
 import com.redefantasy.core.shared.commands.argument.Argument
 import com.redefantasy.core.shared.commands.restriction.CommandRestriction
-import com.redefantasy.core.shared.echo.packets.TitlePacket
 import com.redefantasy.core.shared.users.data.User
 import com.redefantasy.core.shared.users.passwords.storage.dto.FetchUserPasswordByUserIdDTO
 import com.redefantasy.core.spigot.command.CustomCommand
-import com.redefantasy.core.spigot.misc.utils.Title
+import com.redefantasy.login.misc.services.LoginService
 import net.md_5.bungee.api.chat.ComponentBuilder
 import net.md_5.bungee.api.chat.TextComponent
-import org.bukkit.Sound
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import kotlin.math.abs
@@ -78,23 +76,7 @@ class LoginCommand : CustomCommand("logar") {
             return false
         }
 
-        user.setLogged(successfully)
-
-        val title = Title(
-            "§a§lAutenticado!",
-            "§fRedirecionando...",
-            0,
-            0,
-            60
-        )
-
-        commandSender.playSound(
-            commandSender.location,
-            Sound.LEVEL_UP,
-            1.0F,
-            1.0F
-        )
-        title.sendToPlayer(commandSender)
+        LoginService.authenticate(user)
         return true
     }
 

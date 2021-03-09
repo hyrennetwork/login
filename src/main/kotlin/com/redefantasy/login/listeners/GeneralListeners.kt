@@ -1,13 +1,25 @@
 package com.redefantasy.login.listeners
 
 import com.redefantasy.core.shared.CoreProvider
+import com.redefantasy.core.shared.groups.Group
+import com.redefantasy.core.spigot.CoreSpigotConstants
 import com.redefantasy.core.spigot.misc.utils.Title
 import com.redefantasy.login.LoginPlugin
+import com.redefantasy.login.LoginProvider
 import net.md_5.bungee.api.chat.ComponentBuilder
 import org.bukkit.Bukkit
+import org.bukkit.entity.EntityType
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
-import org.bukkit.event.player.AsyncPlayerChatEvent
+import org.bukkit.event.block.*
+import org.bukkit.event.entity.EntityChangeBlockEvent
+import org.bukkit.event.entity.EntityCombustEvent
+import org.bukkit.event.entity.EntityDamageByEntityEvent
+import org.bukkit.event.entity.EntityDamageEvent
+import org.bukkit.event.inventory.InventoryClickEvent
+import org.bukkit.event.player.PlayerInteractAtEntityEvent
+import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerMoveEvent
 import org.bukkit.scheduler.BukkitTask
@@ -61,6 +73,14 @@ class GeneralListeners : Listener {
         Bukkit.getOnlinePlayers().forEach {
             player.hidePlayer(it); it.hidePlayer(player)
         }
+
+        player.maxHealth = 2.0
+
+        val spawnSerializedLocation = LoginProvider.Repositories.Mongo.SPAWN_REPOSITORY.provide().fetch()
+
+        if (spawnSerializedLocation !== null) player.teleport(
+            CoreSpigotConstants.BUKKIT_LOCATION_PARSER.apply(spawnSerializedLocation)
+        )
     }
 
     @EventHandler
@@ -74,6 +94,146 @@ class GeneralListeners : Listener {
         if (toLocation.x != fromLocation.x || toLocation.y != fromLocation.y || toLocation.z != fromLocation.z) {
             player.teleport(fromLocation)
         }
+    }
+
+    @EventHandler
+    fun on(
+        event: BlockBreakEvent
+    ) {
+        val player = event.player
+        val user = CoreProvider.Cache.Local.USERS.provide().fetchById(player.uniqueId)
+
+        if ((user === null || !user.isLogged()) && user!!.hasGroup(Group.MANAGER)) {
+            event.isCancelled = true
+        }
+    }
+
+    @EventHandler
+    fun on(
+        event: BlockPlaceEvent
+    ) {
+        val player = event.player
+        val user = CoreProvider.Cache.Local.USERS.provide().fetchById(player.uniqueId)
+
+        if ((user === null || !user.isLogged()) && user!!.hasGroup(Group.MANAGER)) {
+            event.isCancelled = true
+        }
+    }
+
+    @EventHandler
+    fun on(
+        event: PlayerInteractEvent
+    ) {
+        val player = event.player
+        val user = CoreProvider.Cache.Local.USERS.provide().fetchById(player.uniqueId)
+
+        if ((user === null || !user.isLogged()) && user!!.hasGroup(Group.MANAGER)) {
+            event.isCancelled = true
+        }
+    }
+
+    @EventHandler
+    fun on(
+        event: InventoryClickEvent
+    ) {
+        if (event.whoClicked !is Player) return
+
+        val player = event.whoClicked as Player
+        val user = CoreProvider.Cache.Local.USERS.provide().fetchById(player.uniqueId)
+
+        if ((user === null || !user.isLogged()) && user!!.hasGroup(Group.MANAGER)) {
+            event.isCancelled = true
+        }
+    }
+
+    @EventHandler
+    fun on(
+        event: EntityDamageEvent
+    ) {
+        if (event.entity !is Player) return
+
+        event.isCancelled = true
+
+        if (event.cause === EntityDamageEvent.DamageCause.VOID && event.entity is Player) {
+            val player = event.entity
+
+            val spawnSerializedLocation = LoginProvider.Repositories.Mongo.SPAWN_REPOSITORY.provide().fetch()
+
+            if (spawnSerializedLocation !== null) player.teleport(
+                CoreSpigotConstants.BUKKIT_LOCATION_PARSER.apply(spawnSerializedLocation)
+            )
+        }
+    }
+
+    @EventHandler
+    fun on(
+        event: EntityChangeBlockEvent
+    ) {
+        val entity = event.entity
+        val block = event.block
+
+        if (entity.type == EntityType.FALLING_BLOCK) {
+            val blockState = block.state
+
+            blockState.update()
+
+            entity.remove()
+
+            blockState.update()
+
+            event.isCancelled = true
+
+            blockState.update()
+        }
+    }
+
+    @EventHandler
+    fun on(
+        event: BlockPhysicsEvent
+    ) {
+        event.isCancelled = true
+    }
+
+    @EventHandler
+    fun on(
+        event: PlayerInteractAtEntityEvent
+    ) {
+        event.isCancelled = true
+    }
+
+    @EventHandler
+    fun on(
+        event: EntityCombustEvent
+    ) {
+        event.isCancelled = true
+    }
+
+    @EventHandler
+    fun on(
+        event: BlockIgniteEvent
+    ) {
+        event.isCancelled = true
+    }
+
+    @EventHandler
+    fun on(
+        event: EntityDamageByEntityEvent
+    ) {
+        event.isCancelled = true
+    }
+
+    @EventHandler
+    fun on(
+        event: BlockFromToEvent
+    ) {
+        event.isCancelled = true
+    }
+
+    @EventHandler
+    fun on(
+        event: BlockFadeEvent
+    ) {
+        event.isCancelled = true
     }
 
 }
