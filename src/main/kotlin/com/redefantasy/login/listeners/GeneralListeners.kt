@@ -18,10 +18,7 @@ import org.bukkit.event.entity.EntityCombustEvent
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.event.inventory.InventoryClickEvent
-import org.bukkit.event.player.PlayerInteractAtEntityEvent
-import org.bukkit.event.player.PlayerInteractEvent
-import org.bukkit.event.player.PlayerJoinEvent
-import org.bukkit.event.player.PlayerMoveEvent
+import org.bukkit.event.player.*
 import org.bukkit.scheduler.BukkitTask
 import java.util.*
 
@@ -244,6 +241,13 @@ class GeneralListeners : Listener {
     @EventHandler
     fun on(
         event: BlockFadeEvent
+    ) {
+        event.isCancelled = true
+    }
+
+    @EventHandler
+    fun on(
+        event: AsyncPlayerChatEvent
     ) {
         event.isCancelled = true
     }
