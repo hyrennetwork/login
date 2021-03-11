@@ -25,8 +25,6 @@ class LoginPlugin : CustomPlugin() {
     override fun onEnable() {
         super.onEnable()
 
-        LoginProvider.prepare()
-
         val pluginManager = Bukkit.getServer().pluginManager
 
         pluginManager.registerEvents(GeneralListeners(), this)

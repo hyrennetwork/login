@@ -55,8 +55,11 @@ dependencies {
     // jodatime
     compileOnly("org.jetbrains.exposed:exposed-jodatime:0.29.1")
 
-    // mongodb
-    compileOnly("org.mongodb:mongo-java-driver:3.9.1")
+    // exposed
+    compileOnly("org.jetbrains.exposed:exposed-core:0.29.1")
+    compileOnly("org.jetbrains.exposed:exposed-dao:0.29.1")
+    compileOnly("org.jetbrains.exposed:exposed-jdbc:0.29.1")
+    compileOnly("org.jetbrains.exposed:exposed-jodatime:0.29.1")
 
     // mongojack
     compileOnly("org.mongojack:mongojack:4.0.2")

@@ -3,9 +3,9 @@ package com.redefantasy.login.listeners
 import com.redefantasy.core.shared.CoreProvider
 import com.redefantasy.core.shared.groups.Group
 import com.redefantasy.core.spigot.CoreSpigotConstants
+import com.redefantasy.core.spigot.CoreSpigotProvider
 import com.redefantasy.core.spigot.misc.utils.Title
 import com.redefantasy.login.LoginPlugin
-import com.redefantasy.login.LoginProvider
 import net.md_5.bungee.api.chat.ComponentBuilder
 import org.bukkit.Bukkit
 import org.bukkit.entity.EntityType
@@ -78,7 +78,7 @@ class GeneralListeners : Listener {
 
         player.maxHealth = 2.0
 
-        val spawnSerializedLocation = LoginProvider.Repositories.Mongo.SPAWN_REPOSITORY.provide().fetch()
+        val spawnSerializedLocation = CoreSpigotProvider.Repositories.Postgres.SPAWN_REPOSITORY.provide().fetch()
 
         println(spawnSerializedLocation)
 
@@ -164,7 +164,7 @@ class GeneralListeners : Listener {
         if (event.cause === EntityDamageEvent.DamageCause.VOID && event.entity is Player) {
             val player = event.entity
 
-            val spawnSerializedLocation = LoginProvider.Repositories.Mongo.SPAWN_REPOSITORY.provide().fetch()
+            val spawnSerializedLocation = CoreSpigotProvider.Repositories.Postgres.SPAWN_REPOSITORY.provide().fetch()
 
             if (spawnSerializedLocation !== null) player.teleport(
                 CoreSpigotConstants.BUKKIT_LOCATION_PARSER.apply(spawnSerializedLocation)
