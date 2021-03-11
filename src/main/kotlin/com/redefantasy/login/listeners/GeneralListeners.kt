@@ -83,6 +83,13 @@ class GeneralListeners : Listener {
         if (spawnSerializedLocation !== null) player.teleport(
             CoreSpigotConstants.BUKKIT_LOCATION_PARSER.apply(spawnSerializedLocation)
         )
+
+        val scoreboard = player.scoreboard
+
+        val team = scoreboard.getTeam("zzz") ?: scoreboard.registerNewTeam("zzz")
+
+        team.prefix = "§7${player.name}"
+        team.addEntry(player.displayName)
     }
 
     @EventHandler
