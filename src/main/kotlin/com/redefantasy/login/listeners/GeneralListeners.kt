@@ -88,7 +88,7 @@ class GeneralListeners : Listener {
 
         val team = scoreboard.getTeam("zzz") ?: scoreboard.registerNewTeam("zzz")
 
-        team.prefix = "§7${player.name}"
+        team.prefix = "§7"
         team.addEntry(player.displayName)
     }
 
