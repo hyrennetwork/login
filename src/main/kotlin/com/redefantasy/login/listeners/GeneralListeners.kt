@@ -80,8 +80,6 @@ class GeneralListeners : Listener {
 
         val spawnSerializedLocation = CoreSpigotProvider.Repositories.Postgres.SPAWN_REPOSITORY.provide().fetch()
 
-        println(spawnSerializedLocation)
-
         if (spawnSerializedLocation !== null) player.teleport(
             CoreSpigotConstants.BUKKIT_LOCATION_PARSER.apply(spawnSerializedLocation)
         )
