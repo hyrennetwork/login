@@ -17,7 +17,9 @@ class MongoSpawnRepository : MongoRepository<SerializedLocation>(
 
     override fun create(
         serializedLocation: SerializedLocation
-    ) = this.mongoCollection.insertOne(serializedLocation)
+    ) {
+        this.mongoCollection.insertOne(serializedLocation)
+    }
 
     override fun fetch(): SerializedLocation? = this.mongoCollection.find(
         Filters.eq("application_name", CoreProvider.application.name)

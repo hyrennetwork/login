@@ -58,6 +58,9 @@ dependencies {
     // mongodb
     compileOnly("org.mongodb:mongo-java-driver:3.9.1")
 
+    // mongojack
+    compileOnly("org.mongojack:mongojack:4.0.2")
+
     // core
     compileOnly("com.redefantasy:core-shared:0.1-ALPHA")
     compileOnly("com.redefantasy:core-spigot:0.1-ALPHA")
