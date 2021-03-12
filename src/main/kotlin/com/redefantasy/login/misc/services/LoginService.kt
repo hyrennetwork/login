@@ -43,8 +43,6 @@ object LoginService {
 
         val lobby = this.fetchLobbyApplication()
 
-        println(lobby)
-
         if (lobby === null) {
             player.kick(TextComponent("§cNão foi possível encontrar um saguão livre."))
             return
@@ -55,7 +53,11 @@ object LoginService {
             lobby
         )
 
-        CoreProvider.Databases.Redis.ECHO.provide().publishToAll(packet)
+        Thread {
+            Thread.sleep(1000)
+
+            CoreProvider.Databases.Redis.ECHO.provide().publishToAll(packet)
+        }.start()
     }
 
     private fun fetchLobbyApplication() = CoreProvider.Cache.Local.APPLICATIONS.provide().fetchByApplicationType(ApplicationType.LOBBY)
