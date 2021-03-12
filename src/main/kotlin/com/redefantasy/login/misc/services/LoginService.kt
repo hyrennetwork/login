@@ -43,6 +43,8 @@ object LoginService {
 
         val lobby = this.fetchLobbyApplication()
 
+        println(lobby)
+
         if (lobby === null) {
             player.kick(TextComponent("§cNão foi possível encontrar um saguão livre."))
             return
