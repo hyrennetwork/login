@@ -52,17 +52,11 @@ dependencies {
     // paperspigot
     compileOnly("org.github.paperspigot:paperspigot:1.8.8-R0.1-SNAPSHOT")
 
-    // jodatime
-    compileOnly("org.jetbrains.exposed:exposed-jodatime:0.29.1")
-
     // exposed
     compileOnly("org.jetbrains.exposed:exposed-core:0.29.1")
     compileOnly("org.jetbrains.exposed:exposed-dao:0.29.1")
     compileOnly("org.jetbrains.exposed:exposed-jdbc:0.29.1")
     compileOnly("org.jetbrains.exposed:exposed-jodatime:0.29.1")
-
-    // mongojack
-    compileOnly("org.mongojack:mongojack:4.0.2")
 
     // core
     compileOnly("com.redefantasy:core-shared:0.1-ALPHA")
