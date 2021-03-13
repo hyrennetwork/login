@@ -136,7 +136,13 @@ class GeneralListeners : Listener {
         val player = event.player
         val user = CoreProvider.Cache.Local.USERS.provide().fetchById(player.uniqueId)
 
-        if ((user === null || !user.isLogged()) && user!!.hasGroup(Group.MANAGER)) {
+        if (user === null) {
+            event.isCancelled = true
+
+            return
+        }
+
+        if (!user.isLogged() && user.hasGroup(Group.MANAGER)) {
             event.isCancelled = true
         }
     }
