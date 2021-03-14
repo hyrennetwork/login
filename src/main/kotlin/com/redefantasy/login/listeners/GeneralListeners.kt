@@ -2,12 +2,11 @@ package com.redefantasy.login.listeners
 
 import com.redefantasy.core.shared.CoreProvider
 import com.redefantasy.core.shared.groups.Group
-import com.redefantasy.core.spigot.CoreSpigotConstants
-import com.redefantasy.core.spigot.CoreSpigotProvider
 import com.redefantasy.core.spigot.misc.utils.Title
 import com.redefantasy.login.LoginPlugin
 import net.md_5.bungee.api.chat.ComponentBuilder
 import org.bukkit.Bukkit
+import org.bukkit.Location
 import org.bukkit.entity.EntityType
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
@@ -19,6 +18,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.player.*
+import org.bukkit.event.weather.WeatherChangeEvent
 import org.bukkit.scheduler.BukkitTask
 import java.util.*
 
@@ -74,12 +74,6 @@ class GeneralListeners : Listener {
         }
 
         player.maxHealth = 2.0
-
-        val spawnSerializedLocation = CoreSpigotProvider.Repositories.Postgres.SPAWN_REPOSITORY.provide().fetch()
-
-        if (spawnSerializedLocation !== null) player.teleport(
-            CoreSpigotConstants.BUKKIT_LOCATION_PARSER.apply(spawnSerializedLocation)
-        )
 
         val scoreboard = player.scoreboard
 
@@ -170,12 +164,18 @@ class GeneralListeners : Listener {
         event.isCancelled = true
 
         if (event.cause === EntityDamageEvent.DamageCause.VOID && event.entity is Player) {
+            val world = Bukkit.getWorld("world")
             val player = event.entity
 
-            val spawnSerializedLocation = CoreSpigotProvider.Repositories.Postgres.SPAWN_REPOSITORY.provide().fetch()
-
-            if (spawnSerializedLocation !== null) player.teleport(
-                CoreSpigotConstants.BUKKIT_LOCATION_PARSER.apply(spawnSerializedLocation)
+            player.teleport(
+                Location(
+                    world,
+                    0.5,
+                    78.0,
+                    -0.5,
+                    180F,
+                    0F
+                )
             )
         }
     }
@@ -200,6 +200,22 @@ class GeneralListeners : Listener {
 
             blockState.update()
         }
+    }
+
+    @EventHandler
+    fun on(
+        event: PlayerInitialSpawnEvent
+    ) {
+        val world = Bukkit.getWorld("world")
+
+        event.spawnLocation = Location(
+            world,
+            0.5,
+            78.0,
+            -0.5,
+            180F,
+            0F
+        )
     }
 
     @EventHandler
@@ -256,6 +272,14 @@ class GeneralListeners : Listener {
         event: AsyncPlayerChatEvent
     ) {
         event.isCancelled = true
+    }
+
+    @EventHandler
+    fun on(
+        event: WeatherChangeEvent
+    ) {
+        if (event.toWeatherState())
+            event.isCancelled = true
     }
 
 }
