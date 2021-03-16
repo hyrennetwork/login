@@ -85,22 +85,6 @@ class GeneralListeners : Listener {
 
     @EventHandler
     fun on(
-        event: PlayerMoveEvent
-    ) {
-        val player = event.player
-        val fromLocation = event.from
-        val toLocation = event.to
-        val user = CoreProvider.Cache.Local.USERS.provide().fetchById(player.uniqueId)
-
-        if (user !== null && user.isLogged() && user.hasGroup(Group.MANAGER)) return
-
-        if (toLocation.x != fromLocation.x || toLocation.y != fromLocation.y || toLocation.z != fromLocation.z) {
-            player.teleport(fromLocation)
-        }
-    }
-
-    @EventHandler
-    fun on(
         event: BlockBreakEvent
     ) {
         val player = event.player
