@@ -23,7 +23,7 @@ class LoginCommand : CustomCommand("logar") {
 
     override fun getCommandRestriction() = CommandRestriction.GAME
 
-    override fun getAliases() = arrayOf("login")
+    override fun getAliases() = listOf("login")
 
     override fun getArguments() = listOf(
         Argument("senha")
