@@ -2,7 +2,6 @@ package com.redefantasy.login.misc.services
 
 import com.redefantasy.core.shared.CoreProvider
 import com.redefantasy.core.shared.applications.ApplicationType
-import com.redefantasy.core.shared.applications.status.ApplicationStatus
 import com.redefantasy.core.shared.echo.packets.ConnectUserToApplicationPacket
 import com.redefantasy.core.shared.users.data.User
 import com.redefantasy.core.spigot.misc.utils.Title
@@ -63,23 +62,10 @@ object LoginService {
     private fun fetchLobbyApplication() = CoreProvider.Cache.Local.APPLICATIONS.provide().fetchByApplicationType(ApplicationType.LOBBY)
             .stream()
             .sorted { application1, application2 ->
-                val applicationStatus1 =
-                    CoreProvider.Cache.Redis.APPLICATIONS_STATUS.provide().fetchApplicationStatusByApplication(
-                        application1,
-                        ApplicationStatus::class
-                    )
-                val applicationStatus2 =
-                    CoreProvider.Cache.Redis.APPLICATIONS_STATUS.provide().fetchApplicationStatusByApplication(
-                        application2,
-                        ApplicationStatus::class
-                    )
+                val usersByApplication1 = CoreProvider.Cache.Redis.USERS_STATUS.provide().fetchUsersByApplication(application1)
+                val usersByApplication2 = CoreProvider.Cache.Redis.USERS_STATUS.provide().fetchUsersByApplication(application2)
 
-                if (applicationStatus1 === null || applicationStatus2 === null) return@sorted 0
-
-                if (applicationStatus1.onlinePlayers < application1.slots ?: 0 && applicationStatus2.onlinePlayers < application2.slots ?: 0)
-                    return@sorted applicationStatus2.onlinePlayers.compareTo(applicationStatus1.onlinePlayers)
-
-                return@sorted 0
+                usersByApplication2.size.compareTo(usersByApplication1.size)
             }
             .findFirst()
             .orElse(null)
