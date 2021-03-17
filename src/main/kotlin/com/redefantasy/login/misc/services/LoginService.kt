@@ -2,7 +2,6 @@ package com.redefantasy.login.misc.services
 
 import com.redefantasy.core.shared.CoreProvider
 import com.redefantasy.core.shared.applications.ApplicationType
-import com.redefantasy.core.shared.applications.data.Application
 import com.redefantasy.core.shared.echo.packets.ConnectUserToApplicationPacket
 import com.redefantasy.core.shared.users.data.User
 import com.redefantasy.core.spigot.misc.utils.Title
@@ -60,23 +59,23 @@ object LoginService {
         }.start()
     }
 
-    private fun fetchLobbyApplication(): Application? {
-        val bukkitApplications = CoreProvider.Cache.Local.APPLICATIONS.provide().fetchByApplicationType(ApplicationType.LOBBY)
+    private fun fetchLobbyApplication() = CoreProvider.Cache.Local.APPLICATIONS.provide().fetchByApplicationType(ApplicationType.LOBBY)
+        .stream()
+        .filter {
+            val usersByApplication = CoreProvider.Cache.Redis.USERS_STATUS.provide().fetchUsersByApplication(it)
 
-        return bukkitApplications.stream()
-            .min { application1, application2 ->
+            usersByApplication.size < it.slots ?: 0
+        }
+        .min { application1, application2 ->
                 println("${application1.name} -> ${application2.name}")
 
-                val usersByApplication1 =
-                    CoreProvider.Cache.Redis.USERS_STATUS.provide().fetchUsersByApplication(application1)
-                val usersByApplication2 =
-                    CoreProvider.Cache.Redis.USERS_STATUS.provide().fetchUsersByApplication(application2)
+                val usersByApplication1 = CoreProvider.Cache.Redis.USERS_STATUS.provide().fetchUsersByApplication(application1)
+                val usersByApplication2 = CoreProvider.Cache.Redis.USERS_STATUS.provide().fetchUsersByApplication(application2)
 
                 println("${application1.name}:${usersByApplication1.size} || ${application2.name}:${usersByApplication2.size}")
 
-                usersByApplication2.size.compareTo(usersByApplication1.size)
-            }
-            .orElse(null)
-    }
+                usersByApplication1.size.compareTo(usersByApplication2.size)
+        }
+        .orElse(null)
 
 }
