@@ -62,8 +62,12 @@ object LoginService {
     private fun fetchLobbyApplication() = CoreProvider.Cache.Local.APPLICATIONS.provide().fetchByApplicationType(ApplicationType.LOBBY)
             .stream()
             .sorted { application1, application2 ->
+                println("${application1.name} -> ${application2.name}")
+
                 val usersByApplication1 = CoreProvider.Cache.Redis.USERS_STATUS.provide().fetchUsersByApplication(application1)
                 val usersByApplication2 = CoreProvider.Cache.Redis.USERS_STATUS.provide().fetchUsersByApplication(application2)
+
+                println("${application1.name}:${usersByApplication1.size} || ${application2.name}:${usersByApplication2.size}")
 
                 usersByApplication2.size.compareTo(usersByApplication1.size)
             }
