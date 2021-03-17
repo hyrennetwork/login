@@ -74,7 +74,7 @@ object LoginService {
 
                 println("${application1.name}:${usersByApplication1.size} || ${application2.name}:${usersByApplication2.size}")
 
-                usersByApplication2.size shl usersByApplication1.size
+                usersByApplication2.size.compareTo(usersByApplication1.size)
             }
             .orElse(null)
     }
