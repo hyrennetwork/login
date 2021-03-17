@@ -2,6 +2,7 @@ package com.redefantasy.login.misc.services
 
 import com.redefantasy.core.shared.CoreProvider
 import com.redefantasy.core.shared.applications.ApplicationType
+import com.redefantasy.core.shared.applications.data.Application
 import com.redefantasy.core.shared.echo.packets.ConnectUserToApplicationPacket
 import com.redefantasy.core.shared.users.data.User
 import com.redefantasy.core.spigot.misc.utils.Title
@@ -59,19 +60,23 @@ object LoginService {
         }.start()
     }
 
-    private fun fetchLobbyApplication() = CoreProvider.Cache.Local.APPLICATIONS.provide().fetchByApplicationType(ApplicationType.LOBBY)
-            .stream()
-            .sorted { application1, application2 ->
+    private fun fetchLobbyApplication(): Application? {
+        val bukkitApplications = CoreProvider.Cache.Local.APPLICATIONS.provide().fetchByApplicationType(ApplicationType.LOBBY)
+
+        return bukkitApplications.stream()
+            .min { application1, application2 ->
                 println("${application1.name} -> ${application2.name}")
 
-                val usersByApplication1 = CoreProvider.Cache.Redis.USERS_STATUS.provide().fetchUsersByApplication(application1)
-                val usersByApplication2 = CoreProvider.Cache.Redis.USERS_STATUS.provide().fetchUsersByApplication(application2)
+                val usersByApplication1 =
+                    CoreProvider.Cache.Redis.USERS_STATUS.provide().fetchUsersByApplication(application1)
+                val usersByApplication2 =
+                    CoreProvider.Cache.Redis.USERS_STATUS.provide().fetchUsersByApplication(application2)
 
                 println("${application1.name}:${usersByApplication1.size} || ${application2.name}:${usersByApplication2.size}")
 
-                usersByApplication2.size ushr usersByApplication1.size
+                usersByApplication2.size shl usersByApplication1.size
             }
-            .findFirst()
             .orElse(null)
+    }
 
 }
