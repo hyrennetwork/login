@@ -1,7 +1,7 @@
 package com.redefantasy.login.misc.services
 
+import com.redefantasy.core.shared.CoreConstants
 import com.redefantasy.core.shared.CoreProvider
-import com.redefantasy.core.shared.applications.ApplicationType
 import com.redefantasy.core.shared.echo.packets.ConnectUserToApplicationPacket
 import com.redefantasy.core.shared.users.data.User
 import com.redefantasy.core.spigot.misc.utils.Title
@@ -40,16 +40,16 @@ object LoginService {
         )
         title.sendToPlayer(player)
 
-        val lobby = this.fetchLobbyApplication()
+        val bukkitApplication = CoreConstants.fetchLobbyApplication()
 
-        if (lobby === null) {
+        if (bukkitApplication === null) {
             player.kick(TextComponent("§cNão foi possível encontrar um saguão livre."))
             return
         }
 
         val packet = ConnectUserToApplicationPacket(
             user.id,
-            lobby
+            bukkitApplication
         )
 
         Thread {
@@ -58,24 +58,5 @@ object LoginService {
             CoreProvider.Databases.Redis.ECHO.provide().publishToAll(packet)
         }.start()
     }
-
-    private fun fetchLobbyApplication() = CoreProvider.Cache.Local.APPLICATIONS.provide().fetchByApplicationType(ApplicationType.LOBBY)
-        .stream()
-        .filter {
-            val usersByApplication = CoreProvider.Cache.Redis.USERS_STATUS.provide().fetchUsersByApplication(it)
-
-            usersByApplication.size < it.slots ?: 0
-        }
-        .min { application1, application2 ->
-                println("${application1.name} -> ${application2.name}")
-
-                val usersByApplication1 = CoreProvider.Cache.Redis.USERS_STATUS.provide().fetchUsersByApplication(application1)
-                val usersByApplication2 = CoreProvider.Cache.Redis.USERS_STATUS.provide().fetchUsersByApplication(application2)
-
-                println("${application1.name}:${usersByApplication1.size} || ${application2.name}:${usersByApplication2.size}")
-
-                usersByApplication1.size.compareTo(usersByApplication2.size)
-        }
-        .orElse(null)
 
 }
