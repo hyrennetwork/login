@@ -47,6 +47,14 @@ class RegisterCommand : CustomCommand("registrar") {
 
         commandSender as Player
 
+        val address = commandSender.address.address.hostAddress
+        val users = CoreProvider.Cache.Local.USERS.provide().fetchByAddress(address)
+
+        if (users !== null && users.size > 1) {
+            commandSender.sendMessage(TextComponent("§cVocê já atingiu o limite de cadastros."))
+            return false
+        }
+
         var _user: User? = user
 
         if (_user === null) {
@@ -81,13 +89,6 @@ class RegisterCommand : CustomCommand("registrar") {
                 EncryptionUtil.hash(EncryptionUtil.Type.SHA256, args[0])
             )
         )
-
-        val users = CoreProvider.Cache.Local.USERS.provide().fetchByAddress(_user.lastAddress!!)
-
-        if (users !== null && users.size > 1) {
-            commandSender.sendMessage(TextComponent("§cVocê já atingiu o limite de cadastros."))
-            return false
-        }
 
         LoginService.authenticate(_user)
         return false
