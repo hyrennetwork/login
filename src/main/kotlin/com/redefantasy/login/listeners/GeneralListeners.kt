@@ -75,6 +75,14 @@ class GeneralListeners : Listener {
 
         player.maxHealth = 2.0
 
+        player.sendMessage(
+            ComponentBuilder()
+                .append("\n")
+                .append("§e§l AVISO: §r§eNão utilize sua senha em outros servidores.")
+                .append("\n\n")
+                .create()
+        )
+
         val scoreboard = player.scoreboard
 
         val team = scoreboard.getTeam("zzz") ?: scoreboard.registerNewTeam("zzz")
