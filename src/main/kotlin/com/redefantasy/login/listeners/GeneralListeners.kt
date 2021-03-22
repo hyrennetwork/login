@@ -79,7 +79,7 @@ class GeneralListeners : Listener {
             ComponentBuilder()
                 .append("\n")
                 .append("§e§l AVISO: §r§eNão utilize sua senha em outros servidores.")
-                .append("\n\n")
+                .append("\n")
                 .create()
         )
 
