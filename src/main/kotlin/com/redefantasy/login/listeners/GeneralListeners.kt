@@ -7,6 +7,7 @@ import com.redefantasy.login.LoginPlugin
 import net.md_5.bungee.api.chat.ComponentBuilder
 import org.bukkit.Bukkit
 import org.bukkit.Location
+import org.bukkit.Sound
 import org.bukkit.entity.EntityType
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
@@ -75,6 +76,7 @@ class GeneralListeners : Listener {
 
         player.maxHealth = 2.0
 
+        player.playSound(player.location, Sound.VILLAGER_NO, 1F, 2F)
         player.sendMessage(
             ComponentBuilder()
                 .append("\n")
