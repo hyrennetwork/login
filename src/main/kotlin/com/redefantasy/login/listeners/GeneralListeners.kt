@@ -2,9 +2,13 @@ package com.redefantasy.login.listeners
 
 import com.redefantasy.core.shared.CoreProvider
 import com.redefantasy.core.shared.groups.Group
+import com.redefantasy.core.spigot.misc.player.sendPacket
 import com.redefantasy.core.spigot.misc.utils.Title
+import com.redefantasy.login.LoginConstants
 import com.redefantasy.login.LoginPlugin
 import net.md_5.bungee.api.chat.ComponentBuilder
+import net.minecraft.server.v1_8_R3.ChatComponentText
+import net.minecraft.server.v1_8_R3.PacketPlayOutChat
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.Sound
@@ -91,6 +95,14 @@ class GeneralListeners : Listener {
 
         team.prefix = "§7"
         team.addEntry(player.displayName)
+
+        val packet = PacketPlayOutChat(
+            ChatComponentText(
+                String(LoginConstants.EMPTY_LINES)
+            )
+        )
+
+        player.sendPacket(packet)
     }
 
     @EventHandler
