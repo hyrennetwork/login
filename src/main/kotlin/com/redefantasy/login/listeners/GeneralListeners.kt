@@ -80,15 +80,6 @@ class GeneralListeners : Listener {
 
         player.maxHealth = 2.0
 
-        player.playSound(player.location, Sound.VILLAGER_NO, 1F, 2F)
-        player.sendMessage(
-            ComponentBuilder()
-                .append("\n")
-                .append("§e§l AVISO: §r§eNão utilize sua senha em outros servidores.")
-                .append("\n")
-                .create()
-        )
-
         val scoreboard = player.scoreboard
 
         val team = scoreboard.getTeam("zzz") ?: scoreboard.registerNewTeam("zzz")
@@ -103,6 +94,15 @@ class GeneralListeners : Listener {
         )
 
         player.sendPacket(packet)
+
+        player.sendMessage(
+            ComponentBuilder()
+                .append("\n")
+                .append("§e§l AVISO: §r§eNão utilize sua senha em outros servidores.")
+                .append("\n")
+                .create()
+        )
+        player.playSound(player.location, Sound.VILLAGER_NO, 1F, 2F)
     }
 
     @EventHandler
