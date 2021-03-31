@@ -3,15 +3,12 @@ package com.redefantasy.login.listeners
 import com.redefantasy.core.shared.CoreProvider
 import com.redefantasy.core.shared.groups.Group
 import com.redefantasy.core.spigot.misc.player.sendPacket
-import com.redefantasy.core.spigot.misc.utils.Title
 import com.redefantasy.login.LoginConstants
-import com.redefantasy.login.LoginPlugin
-import net.md_5.bungee.api.chat.ComponentBuilder
+import com.redefantasy.login.misc.captcha.inventory.CaptchaInventory
 import net.minecraft.server.v1_8_R3.ChatComponentText
 import net.minecraft.server.v1_8_R3.PacketPlayOutChat
 import org.bukkit.Bukkit
 import org.bukkit.Location
-import org.bukkit.Sound
 import org.bukkit.entity.EntityType
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
@@ -24,55 +21,18 @@ import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.player.*
 import org.bukkit.event.weather.WeatherChangeEvent
-import org.bukkit.scheduler.BukkitTask
-import java.util.*
 
 /**
  * @author Gutyerrez
  */
 class GenericListeners : Listener {
 
-    private val SECONDS = 30L
-
-    companion object {
-
-        val LOGIN_IN = mutableMapOf<UUID, BukkitTask>()
-
-    }
 
     @EventHandler
     fun on(
         event: PlayerJoinEvent
     ) {
         val player = event.player
-        val user = CoreProvider.Cache.Local.USERS.provide().fetchById(player.uniqueId)
-        val title = Title(
-            "§6§lREDE FANTASY",
-            "§fUtilize ${
-                if (user === null) {
-                    "/registrar <senha> <senha>"
-                } else "/logar <senha>"
-            }",
-            0,
-            0,
-            20 * SECONDS.toInt()
-        )
-
-        LOGIN_IN[player.uniqueId] = Bukkit.getScheduler().runTaskLater(
-            LoginPlugin.instance,
-            {
-                player.kick(
-                    ComponentBuilder()
-                        .append("§c§lREDE FANTASY")
-                        .append("\n\n")
-                        .append("§cVocê excedeu o tempo limite para efetuar o login, tente novamente.")
-                        .create()
-                )
-            },
-            20 * SECONDS
-        )
-
-        title.sendToPlayer(player)
 
         Bukkit.getOnlinePlayers().forEach {
             player.hidePlayer(it); it.hidePlayer(player)
@@ -95,14 +55,7 @@ class GenericListeners : Listener {
 
         player.sendPacket(packet)
 
-        player.sendMessage(
-            ComponentBuilder()
-                .append("\n")
-                .append("§e§l AVISO: §r§eNão utilize sua senha em outros servidores.")
-                .append("\n")
-                .create()
-        )
-        player.playSound(player.location, Sound.VILLAGER_NO, 1F, 2F)
+        player.openInventory(CaptchaInventory())
     }
 
     @EventHandler

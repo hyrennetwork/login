@@ -5,20 +5,58 @@ import com.redefantasy.core.shared.CoreProvider
 import com.redefantasy.core.shared.echo.packets.ConnectUserToApplicationPacket
 import com.redefantasy.core.shared.users.data.User
 import com.redefantasy.core.spigot.misc.utils.Title
-import com.redefantasy.login.listeners.GenericListeners
+import com.redefantasy.login.LoginPlugin
+import net.md_5.bungee.api.chat.ComponentBuilder
 import net.md_5.bungee.api.chat.TextComponent
 import org.bukkit.Bukkit
 import org.bukkit.Sound
+import org.bukkit.scheduler.BukkitTask
+import java.util.*
 
 /**
  * @author Gutyerrez
  */
 object LoginService {
 
+    val LOGIN_IN = mutableMapOf<UUID, BukkitTask>()
+    private val TTL_SECONDS = 30L
+
+    fun start(user: User?) {
+        val player = Bukkit.getPlayer(user?.getUniqueId())
+
+        val title = Title(
+            "§6§lREDE FANTASY",
+            "§fUtilize ${
+                if (user === null) {
+                    "/registrar <senha> <senha>"
+                } else "/logar <senha>"
+            }",
+            0,
+            0,
+            20 * TTL_SECONDS.toInt()
+        )
+
+        LOGIN_IN[player.uniqueId] = Bukkit.getScheduler().runTaskLater(
+            LoginPlugin.instance,
+            {
+                player.kick(
+                    ComponentBuilder()
+                        .append("§c§lREDE FANTASY")
+                        .append("\n\n")
+                        .append("§cVocê excedeu o tempo limite para efetuar o login, tente novamente.")
+                        .create()
+                )
+            },
+            20 * TTL_SECONDS
+        )
+
+        title.sendToPlayer(player)
+    }
+
     fun authenticate(user: User) {
         val player = Bukkit.getPlayer(user.getUniqueId())
 
-        val bukkitTask = GenericListeners.LOGIN_IN[player.uniqueId]
+        val bukkitTask = LOGIN_IN[player.uniqueId]
 
         if (bukkitTask !== null) Bukkit.getScheduler().cancelTask(bukkitTask.taskId)
 
@@ -30,6 +68,14 @@ object LoginService {
             0,
             0,
             60
+        )
+
+        player.sendMessage(
+            ComponentBuilder()
+                .append("\n")
+                .append("§e§l AVISO: §r§eNão utilize sua senha em outros servidores.")
+                .append("\n")
+                .create()
         )
 
         player.playSound(
@@ -58,5 +104,7 @@ object LoginService {
             CoreProvider.Databases.Redis.ECHO.provide().publishToAll(packet)
         }.start()
     }
+
+    fun hasStarted(user: User?) = LOGIN_IN.containsKey(user?.getUniqueId())
 
 }

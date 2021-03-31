@@ -36,6 +36,8 @@ class LoginCommand : CustomCommand("logar") {
         user: User?,
         args: Array<out String>
     ): Boolean {
+        if (!LoginService.hasStarted(user)) return false
+
         commandSender as Player
 
         if (user === null) {

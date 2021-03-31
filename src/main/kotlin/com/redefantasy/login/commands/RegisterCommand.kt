@@ -37,6 +37,8 @@ class RegisterCommand : CustomCommand("registrar") {
         user: User?,
         args: Array<out String>
     ): Boolean {
+        if (!LoginService.hasStarted(user)) return false
+
         if (user !== null && CoreProvider.Repositories.Postgres.USERS_PASSWORDS_REPOSITORY.provide().fetchByUserId(
                 FetchUserPasswordByUserIdDTO(user.getUniqueId())
             ).isNotEmpty()
