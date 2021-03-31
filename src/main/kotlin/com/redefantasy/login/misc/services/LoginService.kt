@@ -5,7 +5,7 @@ import com.redefantasy.core.shared.CoreProvider
 import com.redefantasy.core.shared.echo.packets.ConnectUserToApplicationPacket
 import com.redefantasy.core.shared.users.data.User
 import com.redefantasy.core.spigot.misc.utils.Title
-import com.redefantasy.login.listeners.GeneralListeners
+import com.redefantasy.login.listeners.GenericListeners
 import net.md_5.bungee.api.chat.TextComponent
 import org.bukkit.Bukkit
 import org.bukkit.Sound
@@ -18,7 +18,7 @@ object LoginService {
     fun authenticate(user: User) {
         val player = Bukkit.getPlayer(user.getUniqueId())
 
-        val bukkitTask = GeneralListeners.LOGIN_IN[player.uniqueId]
+        val bukkitTask = GenericListeners.LOGIN_IN[player.uniqueId]
 
         if (bukkitTask !== null) Bukkit.getScheduler().cancelTask(bukkitTask.taskId)
 

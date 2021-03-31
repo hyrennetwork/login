@@ -5,7 +5,7 @@ import com.redefantasy.core.spigot.misc.frame.data.Frame
 import com.redefantasy.core.spigot.misc.plugin.CustomPlugin
 import com.redefantasy.login.commands.LoginCommand
 import com.redefantasy.login.commands.RegisterCommand
-import com.redefantasy.login.listeners.GeneralListeners
+import com.redefantasy.login.listeners.GenericListeners
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.block.BlockFace
@@ -31,7 +31,7 @@ class LoginPlugin : CustomPlugin() {
 
         val pluginManager = Bukkit.getServer().pluginManager
 
-        pluginManager.registerEvents(GeneralListeners(), this)
+        pluginManager.registerEvents(GenericListeners(), this)
 
         CommandRegistry.registerCommand(LoginCommand())
         CommandRegistry.registerCommand(RegisterCommand())

@@ -30,7 +30,7 @@ import java.util.*
 /**
  * @author Gutyerrez
  */
-class GeneralListeners : Listener {
+class GenericListeners : Listener {
 
     private val SECONDS = 30L
 
