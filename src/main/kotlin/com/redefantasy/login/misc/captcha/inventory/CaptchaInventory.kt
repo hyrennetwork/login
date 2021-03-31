@@ -38,7 +38,7 @@ class CaptchaInventory : CustomInventory(
         Material.RAW_FISH
     )
 
-    private var remainingItems = 3
+    private var remainingItems = 2
 
     init {
         ITEMS_SLOTS.shuffle()
@@ -60,12 +60,19 @@ class CaptchaInventory : CustomInventory(
 
                     this@CaptchaInventory.remainingItems--
 
-                    if (this@CaptchaInventory.remainingItems <= 0) {
+                    this@CaptchaInventory.setItem(
+                        slot,
+                        ItemBuilder(Material.BARRIER).build()
+                    )
+
+                    if (this@CaptchaInventory.remainingItems < 0) {
                         val user = CoreProvider.Cache.Local.USERS.provide().fetchById(player.uniqueId) ?: User(
                             EntityID(player.uniqueId, UsersTable),
                             player.name,
                             player.address.address.hostAddress
                         )
+
+                        player.closeInventory()
 
                         LoginService.start(user)
                     }
@@ -101,7 +108,7 @@ class CaptchaInventory : CustomInventory(
     ) {
         val player = event.player
 
-        if (this.remainingItems <= 0) return
+        if (this.remainingItems < 0) return
 
         Bukkit.getScheduler().runTaskLater(
             LoginPlugin.instance,
