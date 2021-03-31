@@ -56,7 +56,7 @@ class GenericListeners : Listener {
         player.sendPacket(packet)
 
         Thread {
-            Thread.sleep(20)
+            Thread.sleep(1000)
 
             player.openInventory(CaptchaInventory())
         }.start()
