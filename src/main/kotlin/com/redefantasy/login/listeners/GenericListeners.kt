@@ -1,10 +1,6 @@
 package com.redefantasy.login.listeners
 
-import com.redefantasy.core.spigot.misc.player.sendPacket
-import com.redefantasy.login.LoginConstants
 import com.redefantasy.login.misc.captcha.inventory.CaptchaInventory
-import net.minecraft.server.v1_8_R3.ChatComponentText
-import net.minecraft.server.v1_8_R3.PacketPlayOutChat
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.entity.EntityType
@@ -44,14 +40,6 @@ class GenericListeners : Listener {
 
         team.prefix = "§7"
         team.addEntry(player.displayName)
-
-        val packet = PacketPlayOutChat(
-            ChatComponentText(
-                String(LoginConstants.EMPTY_LINES)
-            )
-        )
-
-        player.sendPacket(packet)
 
         Thread {
             Thread.sleep(100)
