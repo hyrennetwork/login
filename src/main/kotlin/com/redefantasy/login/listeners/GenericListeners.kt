@@ -55,7 +55,11 @@ class GenericListeners : Listener {
 
         player.sendPacket(packet)
 
-        player.openInventory(CaptchaInventory())
+        Thread {
+            Thread.sleep(20)
+
+            player.openInventory(CaptchaInventory())
+        }.start()
     }
 
     @EventHandler
