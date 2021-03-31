@@ -1,7 +1,5 @@
 package com.redefantasy.login.listeners
 
-import com.redefantasy.core.shared.CoreProvider
-import com.redefantasy.core.shared.groups.Group
 import com.redefantasy.core.spigot.misc.player.sendPacket
 import com.redefantasy.login.LoginConstants
 import com.redefantasy.login.misc.captcha.inventory.CaptchaInventory
@@ -60,62 +58,6 @@ class GenericListeners : Listener {
 
             player.openInventory(CaptchaInventory())
         }.start()
-    }
-
-    @EventHandler
-    fun on(
-        event: BlockBreakEvent
-    ) {
-        val player = event.player
-        val user = CoreProvider.Cache.Local.USERS.provide().fetchById(player.uniqueId)
-
-        if ((user === null || !user.isLogged()) && user!!.hasGroup(Group.MANAGER)) {
-            event.isCancelled = true
-        }
-    }
-
-    @EventHandler
-    fun on(
-        event: BlockPlaceEvent
-    ) {
-        val player = event.player
-        val user = CoreProvider.Cache.Local.USERS.provide().fetchById(player.uniqueId)
-
-        if ((user === null || !user.isLogged()) && user!!.hasGroup(Group.MANAGER)) {
-            event.isCancelled = true
-        }
-    }
-
-    @EventHandler
-    fun on(
-        event: PlayerInteractEvent
-    ) {
-        val player = event.player
-        val user = CoreProvider.Cache.Local.USERS.provide().fetchById(player.uniqueId)
-
-        if (user === null) {
-            event.isCancelled = true
-
-            return
-        }
-
-        if (!user.isLogged() && user.hasGroup(Group.MANAGER)) {
-            event.isCancelled = true
-        }
-    }
-
-    @EventHandler
-    fun on(
-        event: InventoryClickEvent
-    ) {
-        if (event.whoClicked !is Player) return
-
-        val player = event.whoClicked as Player
-        val user = CoreProvider.Cache.Local.USERS.provide().fetchById(player.uniqueId)
-
-        if ((user === null || !user.isLogged()) && user!!.hasGroup(Group.MANAGER)) {
-            event.isCancelled = true
-        }
     }
 
     @EventHandler
@@ -183,7 +125,42 @@ class GenericListeners : Listener {
 
     @EventHandler
     fun on(
+        event: BlockBreakEvent
+    ) {
+        event.isCancelled = true
+    }
+
+    @EventHandler
+    fun on(
+        event: BlockPlaceEvent
+    ) {
+        event.isCancelled = true
+    }
+
+    @EventHandler
+    fun on(
+        event: PlayerInteractEvent
+    ) {
+        event.isCancelled = true
+    }
+
+    @EventHandler
+    fun on(
+        event: InventoryClickEvent
+    ) {
+        event.isCancelled = true
+    }
+
+    @EventHandler
+    fun on(
         event: BlockPhysicsEvent
+    ) {
+        event.isCancelled = true
+    }
+
+    @EventHandler
+    fun on(
+        event: PlayerInteractEntityEvent
     ) {
         event.isCancelled = true
     }
