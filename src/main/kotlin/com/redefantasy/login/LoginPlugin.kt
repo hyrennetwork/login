@@ -69,7 +69,7 @@ class LoginPlugin : CustomPlugin() {
         /**
          * Frames
          */
-        val frame = Frame(URL("https://i.imgur.com/4r9csnG.png"))
+        val frame = Frame(URL("https://i.imgur.com/YzXizib.png"))
 
         frame.place(
             Location(
