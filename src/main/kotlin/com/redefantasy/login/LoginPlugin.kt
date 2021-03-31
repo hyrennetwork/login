@@ -1,11 +1,15 @@
 package com.redefantasy.login
 
 import com.redefantasy.core.spigot.command.registry.CommandRegistry
+import com.redefantasy.core.spigot.misc.frame.data.Frame
 import com.redefantasy.core.spigot.misc.plugin.CustomPlugin
 import com.redefantasy.login.commands.LoginCommand
 import com.redefantasy.login.commands.RegisterCommand
 import com.redefantasy.login.listeners.GeneralListeners
 import org.bukkit.Bukkit
+import org.bukkit.Location
+import org.bukkit.block.BlockFace
+import java.net.URL
 
 /**
  * @author Gutyerrez
@@ -57,6 +61,36 @@ class LoginPlugin : CustomPlugin() {
 
             it.time = 1200
         }
+
+        /**
+         * Frames
+         */
+
+        /**
+         * Frames
+         */
+        val frame = Frame(URL("https://i.imgur.com/4r9csnG.png"))
+
+        frame.place(
+            Location(
+                Bukkit.getWorld("world"),
+                -4.0,
+                89.0,
+                -39.0
+            ),
+            BlockFace.SOUTH
+        )
+
+        frame.place(
+            Location(
+                Bukkit.getWorld("world"),
+                4.0,
+                89.0,
+                -39.0
+            ),
+            BlockFace.NORTH
+        )
+
     }
 
 }
