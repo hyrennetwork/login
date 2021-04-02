@@ -123,6 +123,8 @@ object LoginService {
         }.start()
     }
 
-    fun hasStarted(user: User?) = LOGIN_IN.containsKey(user?.getUniqueId())
+    fun hasStarted(user: User?) = this.hasStarted(user?.getUniqueId())
+
+    fun hasStarted(uuid: UUID?) = LOGIN_IN.containsKey(uuid)
 
 }
