@@ -26,12 +26,18 @@ object LoginService {
     private val TTL_SECONDS = 30L
 
     fun start(user: User?) {
-        val player = Bukkit.getPlayer(user?.getUniqueId())
+        if (user == null) return
+
+        this.start(user.getUniqueId())
+    }
+
+    fun start(uuid: UUID) {
+        val player = Bukkit.getPlayer(uuid)
 
         val title = Title(
             "§6§lREDE FANTASY",
             "§fUtilize ${
-                if (user === null) {
+                if (CoreProvider.Cache.Local.USERS.provide().fetchById(uuid) === null) {
                     "/registrar <senha> <senha>"
                 } else "/logar <senha>"
             }",

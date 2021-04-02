@@ -1,8 +1,6 @@
 package com.redefantasy.login.misc.captcha.inventory
 
 import com.redefantasy.core.shared.CoreProvider
-import com.redefantasy.core.shared.users.data.User
-import com.redefantasy.core.shared.users.storage.table.UsersTable
 import com.redefantasy.core.spigot.inventory.CustomInventory
 import com.redefantasy.core.spigot.misc.utils.ItemBuilder
 import com.redefantasy.login.LoginPlugin
@@ -12,7 +10,6 @@ import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryCloseEvent
-import org.jetbrains.exposed.dao.id.EntityID
 import java.util.*
 import java.util.function.Consumer
 
@@ -66,15 +63,14 @@ class CaptchaInventory : CustomInventory(
                     )
 
                     if (this@CaptchaInventory.remainingItems < 0) {
-                        val user = CoreProvider.Cache.Local.USERS.provide().fetchById(player.uniqueId) ?: User(
-                            EntityID(player.uniqueId, UsersTable),
-                            player.name,
-                            player.address.address.hostAddress
-                        )
+                        val user = CoreProvider.Cache.Local.USERS.provide().fetchById(player.uniqueId)
 
                         player.closeInventory()
 
-                        LoginService.start(user)
+                        when (user === null) {
+                            true -> LoginService.start(player.uniqueId)
+                            false -> LoginService.start(user)
+                        }
                     }
                 }
             )
