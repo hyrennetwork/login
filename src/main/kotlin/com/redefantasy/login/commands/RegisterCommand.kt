@@ -37,7 +37,9 @@ class RegisterCommand : CustomCommand("registrar") {
         user: User?,
         args: Array<out String>
     ): Boolean {
-        if (!LoginService.hasStarted(user)) return false
+        commandSender as Player
+
+        if (!LoginService.hasStarted(commandSender.uniqueId)) return false
 
         if (user !== null && CoreProvider.Repositories.Postgres.USERS_PASSWORDS_REPOSITORY.provide().fetchByUserId(
                 FetchUserPasswordByUserIdDTO(user.getUniqueId())
@@ -46,8 +48,6 @@ class RegisterCommand : CustomCommand("registrar") {
             commandSender.sendMessage(TextComponent("§cVocê já está registrado. Utilize /logar <senha>."))
             return false
         }
-
-        commandSender as Player
 
         val address = commandSender.address.address.hostAddress
         val users = CoreProvider.Cache.Local.USERS.provide().fetchByAddress(address)
