@@ -49,13 +49,13 @@ class RegisterCommand : CustomCommand("registrar") {
             return false
         }
 
-        val address = commandSender.address.address.hostAddress
+        /*val address = commandSender.address.address.hostAddress
         val users = CoreProvider.Cache.Local.USERS.provide().fetchByAddress(address)
 
         if (users !== null && users.size > 1) {
             commandSender.sendMessage(TextComponent("§cVocê já atingiu o limite de cadastros."))
             return false
-        }
+        }*/
 
         var _user: User? = user
 
