@@ -1,9 +1,7 @@
-name: Login
-
 on: [ 'push' ]
 
 jobs:
-  build:
+  login:
     runs-on: self-hosted
 
     steps:
