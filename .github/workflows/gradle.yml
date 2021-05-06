@@ -2,7 +2,7 @@ on: [ 'push' ]
 
 jobs:
   login:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     env:
       MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
