@@ -1,11 +1,11 @@
-package com.redefantasy.login
+package net.hyren.login
 
-import com.redefantasy.core.spigot.command.registry.CommandRegistry
-import com.redefantasy.core.spigot.misc.frame.data.Frame
-import com.redefantasy.core.spigot.misc.plugin.CustomPlugin
-import com.redefantasy.login.commands.LoginCommand
-import com.redefantasy.login.commands.RegisterCommand
-import com.redefantasy.login.listeners.GenericListeners
+import net.hyren.core.spigot.command.registry.CommandRegistry
+import net.hyren.core.spigot.misc.frame.data.Frame
+import net.hyren.core.spigot.misc.plugin.CustomPlugin
+import net.hyren.login.commands.LoginCommand
+import net.hyren.login.commands.RegisterCommand
+import net.hyren.login.listeners.GenericListeners
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.block.BlockFace

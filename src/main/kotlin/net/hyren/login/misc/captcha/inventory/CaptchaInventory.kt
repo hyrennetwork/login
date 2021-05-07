@@ -1,10 +1,10 @@
-package com.redefantasy.login.misc.captcha.inventory
+package net.hyren.login.misc.captcha.inventory
 
-import com.redefantasy.core.shared.CoreProvider
-import com.redefantasy.core.spigot.inventory.CustomInventory
-import com.redefantasy.core.spigot.misc.utils.ItemBuilder
-import com.redefantasy.login.LoginPlugin
-import com.redefantasy.login.misc.services.LoginService
+import net.hyren.core.shared.CoreProvider
+import net.hyren.core.spigot.inventory.CustomInventory
+import net.hyren.core.spigot.misc.utils.ItemBuilder
+import net.hyren.login.LoginPlugin
+import net.hyren.login.misc.services.LoginService
 import net.md_5.bungee.api.chat.TextComponent
 import org.bukkit.Bukkit
 import org.bukkit.Material

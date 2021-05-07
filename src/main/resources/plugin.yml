@@ -1,5 +1,5 @@
 name: Login
-main: com.redefantasy.login.LoginPlugin
+main: net.hyren.login.LoginPlugin
 version: 0.1-ALPHA
 author: Gutyerrez
 depend:

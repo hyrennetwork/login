@@ -1,13 +1,13 @@
-package com.redefantasy.login.misc.services
+package net.hyren.login.misc.services
 
-import com.redefantasy.core.shared.CoreConstants
-import com.redefantasy.core.shared.CoreProvider
-import com.redefantasy.core.shared.echo.packets.ConnectUserToApplicationPacket
-import com.redefantasy.core.shared.users.data.User
-import com.redefantasy.core.spigot.misc.player.sendPacket
-import com.redefantasy.core.spigot.misc.utils.Title
-import com.redefantasy.login.LoginConstants
-import com.redefantasy.login.LoginPlugin
+import net.hyren.core.shared.CoreConstants
+import net.hyren.core.shared.CoreProvider
+import net.hyren.core.shared.echo.packets.ConnectUserToApplicationPacket
+import net.hyren.core.shared.users.data.User
+import net.hyren.core.spigot.misc.player.sendPacket
+import net.hyren.core.spigot.misc.utils.Title
+import net.hyren.login.LoginConstants
+import net.hyren.login.LoginPlugin
 import net.md_5.bungee.api.chat.ComponentBuilder
 import net.md_5.bungee.api.chat.TextComponent
 import net.minecraft.server.v1_8_R3.ChatComponentText

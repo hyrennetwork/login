@@ -1,6 +1,6 @@
-package com.redefantasy.login.listeners
+package net.hyren.login.listeners
 
-import com.redefantasy.login.misc.captcha.inventory.CaptchaInventory
+import net.hyren.login.misc.captcha.inventory.CaptchaInventory
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.entity.EntityType

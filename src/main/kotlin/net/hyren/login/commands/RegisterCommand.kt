@@ -1,15 +1,15 @@
-package com.redefantasy.login.commands
+package net.hyren.login.commands
 
-import com.redefantasy.core.shared.CoreProvider
-import com.redefantasy.core.shared.commands.argument.Argument
-import com.redefantasy.core.shared.commands.restriction.CommandRestriction
-import com.redefantasy.core.shared.misc.utils.EncryptionUtil
-import com.redefantasy.core.shared.users.data.User
-import com.redefantasy.core.shared.users.passwords.storage.dto.CreateUserPasswordDTO
-import com.redefantasy.core.shared.users.passwords.storage.dto.FetchUserPasswordByUserIdDTO
-import com.redefantasy.core.shared.users.storage.dto.CreateUserDTO
-import com.redefantasy.core.spigot.command.CustomCommand
-import com.redefantasy.login.misc.services.LoginService
+import net.hyren.core.shared.CoreProvider
+import net.hyren.core.shared.commands.argument.Argument
+import net.hyren.core.shared.commands.restriction.CommandRestriction
+import net.hyren.core.shared.misc.utils.EncryptionUtil
+import net.hyren.core.shared.users.data.User
+import net.hyren.core.shared.users.passwords.storage.dto.CreateUserPasswordDTO
+import net.hyren.core.shared.users.passwords.storage.dto.FetchUserPasswordByUserIdDTO
+import net.hyren.core.shared.users.storage.dto.CreateUserDTO
+import net.hyren.core.spigot.command.CustomCommand
+import net.hyren.login.misc.services.LoginService
 import net.md_5.bungee.api.chat.TextComponent
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
