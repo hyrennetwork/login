@@ -49,7 +49,7 @@ class LoginCommand : CustomCommand("logar") {
             return false
         }
 
-        val currentPassword = CoreProvider.Repositories.Postgres.USERS_PASSWORDS_REPOSITORY.provide().fetchByUserId(
+        val currentPassword = CoreProvider.Repositories.MariaDB.USERS_PASSWORDS_REPOSITORY.provide().fetchByUserId(
             FetchUserPasswordByUserIdDTO(user.getUniqueId())
         ).stream()
             .filter { it.enabled }
@@ -65,7 +65,7 @@ class LoginCommand : CustomCommand("logar") {
 
         if (!successfully && user.loginAttempts.get() >= CoreConstants.MAX_LOGIN_ATTEMPTS) {
             commandSender.kick(
-                ComponentBuilder("§c§lREDE FANTASY")
+                ComponentBuilder(CoreConstants.Info.ERROR_SERVER_NAME)
                     .append("\n\n")
                     .append("§cVocê excedeu o número limite de ${CoreConstants.MAX_LOGIN_ATTEMPTS} tentativas de login, reconecte e tente novamente.")
                     .create()

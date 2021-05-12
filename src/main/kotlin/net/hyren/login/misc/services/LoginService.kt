@@ -35,7 +35,7 @@ object LoginService {
         val player = Bukkit.getPlayer(uuid)
 
         val title = Title(
-            "§6§lREDE FANTASY",
+            CoreConstants.Info.COLORED_SERVER_NAME,
             "§fUtilize ${
                 if (CoreProvider.Cache.Local.USERS.provide().fetchById(uuid) === null) {
                     "/registrar <senha> <senha>"
