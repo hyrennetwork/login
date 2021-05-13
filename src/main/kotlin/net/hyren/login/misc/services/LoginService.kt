@@ -51,7 +51,7 @@ object LoginService {
             {
                 player.kick(
                     ComponentBuilder()
-                        .append("§c§lREDE FANTASY")
+                        .append(CoreConstants.Info.COLORED_SERVER_NAME)
                         .append("\n\n")
                         .append("§cVocê excedeu o tempo limite para efetuar o login, tente novamente.")
                         .create()
