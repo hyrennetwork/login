@@ -58,9 +58,13 @@ class LoginCommand : CustomCommand("logar") {
             return false
         }
 
-        val currentPassword = CoreProvider.Repositories.MariaDB.USERS_PASSWORDS_REPOSITORY.provide().fetchByUserId(
+        val passwords = CoreProvider.Repositories.MariaDB.USERS_PASSWORDS_REPOSITORY.provide().fetchByUserId(
             FetchUserPasswordByUserIdDTO(user.getUniqueId())
-        ).stream()
+        )
+
+        println("Passwords: $passwords")
+
+        val currentPassword = passwords.stream()
             .filter { it.enabled }
             .findFirst()
             .orElse(null)
