@@ -40,17 +40,8 @@ class LoginCommand : CustomCommand("logar") {
 
         commandSender as Player
 
-        println(commandSender.uniqueId)
-        println(
-            if (user == null) {
-                user
-            } else {
-                "${user.id} ${user.name}"
-            }
-        )
-
         if (user == null) {
-            commandSender.sendMessage(TextComponent("§cVocê não está registrado. 1"))
+            commandSender.sendMessage(TextComponent("§cVocê não está registrado."))
             return false
         }
 
@@ -58,19 +49,15 @@ class LoginCommand : CustomCommand("logar") {
             return false
         }
 
-        val passwords = CoreProvider.Repositories.MariaDB.USERS_PASSWORDS_REPOSITORY.provide().fetchByUserId(
+        val currentPassword = CoreProvider.Repositories.MariaDB.USERS_PASSWORDS_REPOSITORY.provide().fetchByUserId(
             FetchUserPasswordByUserIdDTO(user.getUniqueId())
-        )
-
-        println("Passwords: $passwords")
-
-        val currentPassword = passwords.stream()
+        ).stream()
             .filter { it.enabled }
             .findFirst()
             .orElse(null)
 
         if (currentPassword == null) {
-            commandSender.sendMessage(TextComponent("§cVocê não está registrado. 2"))
+            commandSender.sendMessage(TextComponent("§cVocê não está registrado."))
             return false
         }
 
