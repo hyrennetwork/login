@@ -50,7 +50,7 @@ class LoginCommand : CustomCommand("logar") {
         )
 
         if (user == null) {
-            commandSender.sendMessage(TextComponent("§cVocê não está registrado."))
+            commandSender.sendMessage(TextComponent("§cVocê não está registrado. 1"))
             return false
         }
 
@@ -66,7 +66,7 @@ class LoginCommand : CustomCommand("logar") {
             .orElse(null)
 
         if (currentPassword == null) {
-            commandSender.sendMessage(TextComponent("§cVocê não está registrado."))
+            commandSender.sendMessage(TextComponent("§cVocê não está registrado. 2"))
             return false
         }
 
