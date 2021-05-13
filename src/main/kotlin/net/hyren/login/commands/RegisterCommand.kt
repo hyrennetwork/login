@@ -41,7 +41,7 @@ class RegisterCommand : CustomCommand("registrar") {
 
         if (!LoginService.hasStarted(commandSender.uniqueId)) return false
 
-        if (user !== null && CoreProvider.Repositories.MariaDB.USERS_PASSWORDS_REPOSITORY.provide().fetchByUserId(
+        if (user != null && CoreProvider.Repositories.MariaDB.USERS_PASSWORDS_REPOSITORY.provide().fetchByUserId(
                 FetchUserPasswordByUserIdDTO(user.getUniqueId())
             ).isNotEmpty()
         ) {
@@ -59,7 +59,7 @@ class RegisterCommand : CustomCommand("registrar") {
 
         var _user: User? = user
 
-        if (_user === null) {
+        if (_user == null) {
             _user = CoreProvider.Repositories.MariaDB.USERS_REPOSITORY.provide().create(
                 CreateUserDTO(
                     commandSender.uniqueId,

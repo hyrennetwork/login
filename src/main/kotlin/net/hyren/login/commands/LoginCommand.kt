@@ -40,7 +40,16 @@ class LoginCommand : CustomCommand("logar") {
 
         commandSender as Player
 
-        if (user === null) {
+        println(commandSender.uniqueId)
+        println(
+            if (user == null) {
+                user
+            } else {
+                "${user.id} ${user.name}"
+            }
+        )
+
+        if (user == null) {
             commandSender.sendMessage(TextComponent("§cVocê não está registrado."))
             return false
         }
@@ -56,7 +65,7 @@ class LoginCommand : CustomCommand("logar") {
             .findFirst()
             .orElse(null)
 
-        if (currentPassword === null) {
+        if (currentPassword == null) {
             commandSender.sendMessage(TextComponent("§cVocê não está registrado."))
             return false
         }
