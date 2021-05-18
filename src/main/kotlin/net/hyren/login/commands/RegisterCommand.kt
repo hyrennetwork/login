@@ -41,7 +41,7 @@ class RegisterCommand : CustomCommand("registrar") {
 
         if (!LoginService.hasStarted(commandSender.uniqueId)) return false
 
-        if (user != null && CoreProvider.Repositories.MariaDB.USERS_PASSWORDS_REPOSITORY.provide().fetchByUserId(
+        if (user != null && CoreProvider.Repositories.PostgreSQL.USERS_PASSWORDS_REPOSITORY.provide().fetchByUserId(
                 FetchUserPasswordByUserIdDTO(user.getUniqueId())
             ).isNotEmpty()
         ) {
@@ -60,7 +60,7 @@ class RegisterCommand : CustomCommand("registrar") {
         var _user: User? = user
 
         if (_user == null) {
-            _user = CoreProvider.Repositories.MariaDB.USERS_REPOSITORY.provide().create(
+            _user = CoreProvider.Repositories.PostgreSQL.USERS_REPOSITORY.provide().create(
                 CreateUserDTO(
                     commandSender.uniqueId,
                     commandSender.name,
@@ -74,7 +74,7 @@ class RegisterCommand : CustomCommand("registrar") {
             return false
         }
 
-        val currentPasswords = CoreProvider.Repositories.MariaDB.USERS_PASSWORDS_REPOSITORY.provide().fetchByUserId(
+        val currentPasswords = CoreProvider.Repositories.PostgreSQL.USERS_PASSWORDS_REPOSITORY.provide().fetchByUserId(
             FetchUserPasswordByUserIdDTO(_user.getUniqueId())
         )
 
@@ -85,7 +85,7 @@ class RegisterCommand : CustomCommand("registrar") {
             return false
         }
 
-        CoreProvider.Repositories.MariaDB.USERS_PASSWORDS_REPOSITORY.provide().create(
+        CoreProvider.Repositories.PostgreSQL.USERS_PASSWORDS_REPOSITORY.provide().create(
             CreateUserPasswordDTO(
                 _user.getUniqueId(),
                 EncryptionUtil.hash(EncryptionUtil.Type.SHA256, args[0])

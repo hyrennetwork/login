@@ -49,7 +49,7 @@ class LoginCommand : CustomCommand("logar") {
             return false
         }
 
-        val currentPassword = CoreProvider.Repositories.MariaDB.USERS_PASSWORDS_REPOSITORY.provide().fetchByUserId(
+        val currentPassword = CoreProvider.Repositories.PostgreSQL.USERS_PASSWORDS_REPOSITORY.provide().fetchByUserId(
             FetchUserPasswordByUserIdDTO(user.getUniqueId())
         ).stream()
             .filter { it.enabled }
