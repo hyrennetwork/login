@@ -28,6 +28,8 @@ object LoginService {
     fun start(user: User?) {
         if (user == null) return
 
+        user.loginAttempts.set(0)
+
         this.start(user.getUniqueId())
     }
 
