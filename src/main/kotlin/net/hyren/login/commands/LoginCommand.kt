@@ -1,15 +1,13 @@
 package net.hyren.login.commands
 
-import net.hyren.core.shared.CoreConstants
-import net.hyren.core.shared.CoreProvider
+import net.hyren.core.shared.*
 import net.hyren.core.shared.commands.argument.Argument
 import net.hyren.core.shared.commands.restriction.CommandRestriction
 import net.hyren.core.shared.users.data.User
 import net.hyren.core.shared.users.passwords.storage.dto.FetchUserPasswordByUserIdDTO
 import net.hyren.core.spigot.command.CustomCommand
 import net.hyren.login.misc.services.LoginService
-import net.md_5.bungee.api.chat.ComponentBuilder
-import net.md_5.bungee.api.chat.TextComponent
+import net.md_5.bungee.api.chat.*
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import kotlin.math.abs
@@ -23,7 +21,7 @@ class LoginCommand : CustomCommand("logar") {
 
     override fun getCommandRestriction() = CommandRestriction.GAME
 
-    override fun getAliases() = listOf("login")
+    override fun getAliases0() = arrayOf("login")
 
     override fun getArguments() = listOf(
         Argument("senha")

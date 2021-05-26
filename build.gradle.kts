@@ -40,10 +40,7 @@ dependencies {
     compileOnly("org.github.paperspigot:paperspigot:1.8.8-R0.1-SNAPSHOT")
 
     // exposed
-    compileOnly("org.jetbrains.exposed:exposed-core:0.29.1")
-    compileOnly("org.jetbrains.exposed:exposed-dao:0.29.1")
-    compileOnly("org.jetbrains.exposed:exposed-jdbc:0.29.1")
-    compileOnly("org.jetbrains.exposed:exposed-jodatime:0.29.1")
+    compileOnly("org.jetbrains.exposed:exposed-dao:0.31.1")
 
     // core
     compileOnly("net.hyren:core-shared:0.1-ALPHA")
