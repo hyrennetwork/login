@@ -5,7 +5,8 @@ import net.hyren.core.shared.commands.argument.Argument
 import net.hyren.core.shared.commands.restriction.CommandRestriction
 import net.hyren.core.shared.misc.utils.EncryptionUtil
 import net.hyren.core.shared.users.data.User
-import net.hyren.core.shared.users.passwords.storage.dto.*
+import net.hyren.core.shared.users.passwords.storage.dto.CreateUserPasswordDTO
+import net.hyren.core.shared.users.passwords.storage.dto.FetchUserPasswordByUserIdDTO
 import net.hyren.core.shared.users.storage.dto.CreateUserDTO
 import net.hyren.core.spigot.command.CustomCommand
 import net.hyren.login.misc.services.LoginService
@@ -48,13 +49,13 @@ class RegisterCommand : CustomCommand("registrar") {
             return false
         }
 
-        /*val address = commandSender.address.address.hostAddress
+        val address = commandSender.address.address.hostAddress
         val users = CoreProvider.Cache.Local.USERS.provide().fetchByAddress(address)
 
         if (users !== null && users.size > 1) {
             commandSender.sendMessage(TextComponent("§cVocê já atingiu o limite de cadastros."))
             return false
-        }*/
+        }
 
         var _user: User? = user
 
