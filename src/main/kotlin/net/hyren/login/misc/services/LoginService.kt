@@ -10,8 +10,8 @@ import net.hyren.login.LoginConstants
 import net.hyren.login.LoginPlugin
 import net.md_5.bungee.api.chat.ComponentBuilder
 import net.md_5.bungee.api.chat.TextComponent
-import net.minecraft.server.ChatComponentText
-import net.minecraft.server.PacketPlayOutChat
+import net.minecraft.server.v1_8_R3.ChatComponentText
+import net.minecraft.server.v1_8_R3.PacketPlayOutChat
 import org.bukkit.Bukkit
 import org.bukkit.Sound
 import org.bukkit.scheduler.BukkitTask
