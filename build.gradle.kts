@@ -34,9 +34,8 @@ dependencies {
     // kotlin
     compileOnly(kotlin("stdlib"))
 
-    // spigot
-    compileOnly("org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT")
-    compileOnly("org.spigotmc:spigot-server:1.8.8-R0.1-SNAPSHOT")
+    // paer-spigot-server
+    compileOnly("org.github.paperspigot:paper-spigot-server:1.8.8-R0.1-SNAPSHOT")
 
     // waterfall chat
     compileOnly("io.github.waterfallmc:waterfall-chat:1.16-R0.5-SNAPSHOT")
